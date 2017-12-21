@@ -385,15 +385,9 @@ func unmarshall(field reflect.Value, value string) error {
 	dupField := field
 	unMarshallIt := func(finalField reflect.Value) error {
 		if finalField.CanInterface() && finalField.Type().Implements(unMarshallerType) {
-			if err := finalField.Interface().(TypeUnmarshaller).UnmarshalCSV(value); err != nil {
-				return err
-			}
-			return nil
+			return finalField.Interface().(TypeUnmarshaller).UnmarshalCSV(value)
 		} else if finalField.CanInterface() && finalField.Type().Implements(textUnMarshalerType) { // Otherwise try to use TextMarshaller
-			if err := finalField.Interface().(encoding.TextUnmarshaler).UnmarshalText([]byte(value)); err != nil {
-				return err
-			}
-			return nil
+			return finalField.Interface().(encoding.TextUnmarshaler).UnmarshalText([]byte(value))
 		}
 
 		return NoUnmarshalFuncError{"No known conversion from string to " + field.Type().String() + ", " + field.Type().String() + " does not implement TypeUnmarshaller"}
