@@ -274,7 +274,6 @@ func getCSVFieldPosition(key string, structInfo *structInfo, curHeaderCount int)
 				return &field
 			}
 			matchedFieldCount++
-
 		}
 	}
 	return nil
