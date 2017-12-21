@@ -42,10 +42,7 @@ func writeFromChan(writer *SafeCSVWriter, c <-chan interface{}) error {
 			}
 			csvHeadersLabels[j] = inInnerFieldValue
 		}
-		if err := writer.Write(csvHeadersLabels); err != nil {
-			return err
-		}
-		return nil
+		return writer.Write(csvHeadersLabels)
 	}
 	if err := write(inValue); err != nil {
 		return err
